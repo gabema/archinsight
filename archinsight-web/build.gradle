@@ -3,7 +3,7 @@ plugins {
 }
 
 def npmCommand = System.getProperty('os.name').toLowerCase().contains('windows') ? 'npm.cmd' : 'npm'
-def imageRepository = providers.gradleProperty('archinsightImageRepository').getOrElse('lonelylockley/archinsight')
+def imageRepository = providers.gradleProperty('archinsightImageRepository').getOrElse('gabema/archinsight')
 def releaseImage = "${imageRepository}:editor-ui-${project.version}"
 def releaseContextRoot = providers.gradleProperty('archinsightContextRoot').getOrElse('/app')
 def releasePlatforms = providers.gradleProperty('archinsightDockerPlatforms').getOrElse('linux/amd64')

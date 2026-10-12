@@ -26,7 +26,7 @@ def generatedPaths = [
     file('packages/insight-language/src/generated')
 ]
 allprojects {
-    group = 'com.github.lonelylockley.archinsight'
+    group = 'com.github.gabema.archinsight'
     version = artifactVersions.find { entry ->
         project.path.endsWith("-${entry.key}") || project.name == "archinsight-${entry.key}"
     }?.value ?: artifactVersions.language
@@ -133,7 +133,7 @@ tasks.register('generateLanguageSources', Exec) {
     dependsOn 'languageNpmInstall'
     inputs.dir('packages/insight-language/grammar')
     inputs.dir('packages/insight-language/scripts')
-    inputs.dir('src/main/resources/com/github/lonelylockley/insight')
+    inputs.dir('src/main/resources/com/github/gabema/insight')
     outputs.dir('packages/insight-language/src/generated')
     workingDir = file('packages/insight-language')
     commandLine npmCommand, 'run', 'generate:grammar'

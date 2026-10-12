@@ -8,7 +8,7 @@ RUN npm ci --omit=dev --prefer-offline --no-audit --no-fund
 FROM node:22-alpine
 LABEL org.opencontainers.image.title="archinsight-renderer" \
       org.opencontainers.image.description="Internal hardened DOT to SVG/PNG renderer for Archinsight" \
-      org.opencontainers.image.source="https://github.com/lonelylockley/insight"
+      org.opencontainers.image.source="https://github.com/gabema/insight"
 ENV NODE_ENV=production \
     HOST=127.0.0.1 \
     PORT=3000 \

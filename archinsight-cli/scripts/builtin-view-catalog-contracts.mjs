@@ -6,7 +6,7 @@ import { spawnSync } from "node:child_process";
 const cli = path.resolve("build/index.js");
 const catalog = JSON.parse(readFileSync(path.resolve(
   "..",
-  "src/main/resources/com/github/lonelylockley/insight/builtin-views/catalog.json",
+  "src/main/resources/com/github/gabema/insight/builtin-views/catalog.json",
 ), "utf8"));
 
 const help = spawnSync(process.execPath, [cli, "--help"], { encoding: "utf8" });

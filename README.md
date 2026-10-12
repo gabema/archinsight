@@ -148,7 +148,7 @@ The main modules are documented separately:
 - [Web viewer](archinsight-web/README.md)
 - [Optional renderer service](archinsight-renderer/README.md)
 
-The language core lives in `packages/insight-language`. Built-in Insight framework sources are stored under `src/main/resources/com/github/lonelylockley/insight`. The CLI, extension, and web viewer consume a generated snapshot of those sources.
+The language core lives in `packages/insight-language`. Built-in Insight framework sources are stored under `src/main/resources/com/github/gabema/insight`. The CLI, extension, and web viewer consume a generated snapshot of those sources.
 
 Useful development checks:
 

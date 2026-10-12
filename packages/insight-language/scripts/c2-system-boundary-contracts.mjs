@@ -51,7 +51,7 @@ const graph = selectGraph(
   result,
   { context: "app", tab: "api_components.ai", view: "c2" },
   readFileSync(
-    new URL("../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/c2.aiq", import.meta.url),
+    new URL("../../../src/main/resources/com/github/gabema/insight/builtin-views/c2.aiq", import.meta.url),
     "utf8",
   ),
 );

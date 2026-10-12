@@ -149,20 +149,20 @@ function verifySharedFiles(output) {
     assert.doesNotMatch(reference, /archinsight (?:query|render)[^\n]* -s \S+[^\n]* -c /, `${name} repeats context after source`);
   }
   const expectedBuiltin = readFileSync(
-    path.join(repositoryRoot, "src", "main", "resources", "com", "github", "lonelylockley", "insight", "builtin-views", "deployment.aiq"),
+    path.join(repositoryRoot, "src", "main", "resources", "com", "github", "gabema", "insight", "builtin-views", "deployment.aiq"),
     "utf8",
   );
   const bundledBuiltin = readFileSync(path.join(output, "examples", "builtin-views", "deployment.aiq"), "utf8");
   assert.equal(bundledBuiltin, expectedBuiltin);
   for (const name of ["deployment-system", "deployment-container"]) {
     const expected = readFileSync(
-      path.join(repositoryRoot, "src", "main", "resources", "com", "github", "lonelylockley", "insight", "builtin-views", `${name}.aiq`),
+      path.join(repositoryRoot, "src", "main", "resources", "com", "github", "gabema", "insight", "builtin-views", `${name}.aiq`),
       "utf8",
     );
     assert.equal(readFileSync(path.join(output, "examples", "builtin-views", `${name}.aiq`), "utf8"), expected);
   }
   const expectedC4Builtin = readFileSync(
-    path.join(repositoryRoot, "src", "main", "resources", "com", "github", "lonelylockley", "insight", "builtin-views", "c4.aiq"),
+    path.join(repositoryRoot, "src", "main", "resources", "com", "github", "gabema", "insight", "builtin-views", "c4.aiq"),
     "utf8",
   );
   const bundledC4Builtin = readFileSync(path.join(output, "examples", "builtin-views", "c4.aiq"), "utf8");

@@ -5,7 +5,7 @@ import { IndexedGraph, renderGraphviz, selectGraph } from "../build/runtime/inde
 const result = relationshipFixture();
 const scope = { context: "shared", tab: "model.ai" };
 const builtinC1Query = readFileSync(
-  new URL("../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/c1.aiq", import.meta.url),
+  new URL("../../../src/main/resources/com/github/gabema/insight/builtin-views/c1.aiq", import.meta.url),
   "utf8",
 );
 

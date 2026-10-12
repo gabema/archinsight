@@ -1,7 +1,7 @@
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, dirname, resolve } from "node:path";
 
-const sourceDirectory = resolve("../../src/main/resources/com/github/lonelylockley/insight");
+const sourceDirectory = resolve("../../src/main/resources/com/github/gabema/insight");
 const target = resolve("src/generated/core-source.ts");
 const sources = readdirSync(sourceDirectory)
   .filter((item) => item.endsWith(".ai"))

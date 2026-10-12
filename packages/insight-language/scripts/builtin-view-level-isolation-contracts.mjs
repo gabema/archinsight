@@ -11,7 +11,7 @@ import {
 const views = Object.fromEntries(["c1", "c2", "c3", "c4"].map((name) => [
   name,
   readFileSync(
-    new URL(`../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/${name}.aiq`, import.meta.url),
+    new URL(`../../../src/main/resources/com/github/gabema/insight/builtin-views/${name}.aiq`, import.meta.url),
     "utf8",
   ),
 ]));

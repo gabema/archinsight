@@ -22,7 +22,7 @@ ARG ARCHINSIGHT_CONTEXT_ROOT=/app
 
 LABEL org.opencontainers.image.title="archinsight-web" \
       org.opencontainers.image.description="Archinsight editor and playground" \
-      org.opencontainers.image.source="https://github.com/lonelylockley/insight"
+      org.opencontainers.image.source="https://github.com/gabema/insight"
 
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \

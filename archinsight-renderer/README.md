@@ -184,7 +184,7 @@ Archinsight artifacts:
 ./gradlew :archinsight-renderer:dockerPush
 ```
 
-The default name is `lonelylockley/archinsight:renderer-<version>`, where the
+The default name is `gabema/archinsight:renderer-<version>`, where the
 version comes from `settings.gradle`. Set
 `-ParchinsightImageRepository=<repository>` to use another registry or
 repository.

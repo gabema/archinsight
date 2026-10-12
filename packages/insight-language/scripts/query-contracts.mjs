@@ -10,11 +10,11 @@ import {
 } from "../build/runtime/index.js";
 
 const builtinDeploymentQuery = readFileSync(
-  new URL("../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/deployment.aiq", import.meta.url),
+  new URL("../../../src/main/resources/com/github/gabema/insight/builtin-views/deployment.aiq", import.meta.url),
   "utf8",
 );
 const builtinC4Query = readFileSync(
-  new URL("../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/c4.aiq", import.meta.url),
+  new URL("../../../src/main/resources/com/github/gabema/insight/builtin-views/c4.aiq", import.meta.url),
   "utf8",
 );
 

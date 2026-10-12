@@ -9,7 +9,7 @@ import {
 } from "../build/runtime/index.js";
 
 const view = (name) => readFileSync(
-  new URL(`../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/${name}.aiq`, import.meta.url),
+  new URL(`../../../src/main/resources/com/github/gabema/insight/builtin-views/${name}.aiq`, import.meta.url),
   "utf8",
 );
 

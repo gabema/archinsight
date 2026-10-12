@@ -171,7 +171,7 @@ function viewSignature(graph) {
 
 function builtinView(name) {
   return readFileSync(
-    new URL(`../../../src/main/resources/com/github/lonelylockley/insight/builtin-views/${name}.aiq`, import.meta.url),
+    new URL(`../../../src/main/resources/com/github/gabema/insight/builtin-views/${name}.aiq`, import.meta.url),
     "utf8",
   );
 }

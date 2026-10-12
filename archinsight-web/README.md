@@ -124,7 +124,7 @@ Gradle also exposes:
 ```
 
 `dockerBuild` creates
-`lonelylockley/archinsight:editor-ui-<version>` using the version from
+`gabema/archinsight:editor-ui-<version>` using the version from
 `settings.gradle`. The image is built for the `/app` context root by default.
 Use `-ParchinsightImageRepository=<repository>` or
 `-ParchinsightContextRoot=<path>` to override those release settings.

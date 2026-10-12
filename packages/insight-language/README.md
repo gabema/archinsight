@@ -132,7 +132,7 @@ built-in view name.
 The canonical built-in framework is split by modeling area under:
 
 ```text
-src/main/resources/com/github/lonelylockley/insight/core*.ai
+src/main/resources/com/github/gabema/insight/core*.ai
 ```
 
 The generated TypeScript snapshot is:
