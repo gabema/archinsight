@@ -6,5 +6,6 @@
 build.gradle
 package-lock.json
 src/**
+test/**
 tsconfig.json
 vite.webview.config.mts

@@ -138,6 +138,75 @@ Restart a Codex or Claude session after generating its native skill so the new s
 
 The SvelteKit web viewer presents linked projects in a browser using the same language core and editor components. It supports project-owned `.aiq` custom views, including filename-based overrides of built-in queries. It provides an authenticated owner-scoped application and an anonymous read-only playground containing one explicitly published project.
 
+## Local Install
+
+To try a working copy without publishing, build the CLI and the VSCode extension
+into installable artifacts and install them on your machine. Run the commands from
+the repository root. Dependencies must already be installed (`npm install` in
+`archinsight-cli` and `archinsight-vscode`).
+
+### CLI (global npm package)
+
+Build the CLI and pack it into a tarball:
+
+```shell
+npm --prefix archinsight-cli run build
+npm pack ./archinsight-cli --pack-destination archinsight-cli
+```
+
+This produces `archinsight-cli/archinsight-cli-<version>.tgz`. Install it globally and
+verify the command:
+
+```shell
+npm install -g ./archinsight-cli/archinsight-cli-<version>.tgz
+archinsight --version
+```
+
+Installing the tarball tests exactly what a published package would contain. If the
+global install fails with a permissions error, do not use `sudo`; configure a
+user-owned npm prefix (for example `npm config set prefix ~/.npm-global` and add
+`~/.npm-global/bin` to your `PATH`) or use a Node version manager.
+
+For active development, link the working copy instead so rebuilds take effect
+immediately:
+
+```shell
+cd archinsight-cli && npm link
+```
+
+Remove either install with `npm uninstall -g @archinsight/cli`.
+
+### VSCode extension (`.vsix`)
+
+Package the extension. This runs the typecheck, build, and tests first, then writes
+the `.vsix` into `archinsight-vscode/dist/`:
+
+```shell
+npm --prefix archinsight-vscode run package
+```
+
+Install it into your local VSCode:
+
+```shell
+code --install-extension archinsight-vscode/dist/archinsight-vscode-<version>.vsix
+```
+
+If the `code` command is not on your `PATH`, run `Shell Command: Install 'code'
+command in PATH` from the VSCode Command Palette. On macOS you can also call the
+bundled binary directly:
+
+```shell
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --install-extension archinsight-vscode/dist/archinsight-vscode-<version>.vsix
+```
+
+Alternatively, use the Extensions view: `…` menu → `Install from VSIX…`. Reload the
+window afterwards. To replace an installed copy with the same version, add `--force`.
+Remove the extension with `code --uninstall-extension archinsight.archinsight-vscode`.
+
+Delete older `.vsix` files from `archinsight-vscode/dist/` before repackaging so they
+are not bundled into the new package. The `.tgz` and `.vsix` files are build output
+and are ignored by git.
+
 ## Repository
 
 The main modules are documented separately:
