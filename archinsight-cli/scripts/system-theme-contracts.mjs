@@ -4,6 +4,7 @@ import {
   parseLinuxTheme,
   parseWindowsTheme,
   resolveRenderTheme,
+  windowsRegExecutable,
 } from '../build/system-theme.js';
 
 {
@@ -29,10 +30,14 @@ import {
 {
   const output = 'AppsUseLightTheme    REG_DWORD    0x0';
   assert.equal(await detectSystemRenderTheme('win32', async (executable, args) => {
-    assert.equal(executable, 'reg.exe');
+    assert.equal(executable, 'D:\\Win\\System32\\reg.exe', 'reg.exe must be invoked by absolute path, never resolved from the working directory');
     assert(args.includes('AppsUseLightTheme'));
     return { stdout: output, stderr: '' };
-  }), 'dark');
+  }, { SystemRoot: 'D:\\Win' }), 'dark');
+  assert.equal(windowsRegExecutable({ windir: 'E:\\Windows' }), 'E:\\Windows\\System32\\reg.exe');
+  assert.equal(windowsRegExecutable({ SystemRoot: 'malicious', windir: 'relative\\dir' }), 'C:\\Windows\\System32\\reg.exe');
+  assert.equal(windowsRegExecutable({ SystemRoot: '\\\\server\\share' }), 'C:\\Windows\\System32\\reg.exe');
+  assert.equal(windowsRegExecutable({}), 'C:\\Windows\\System32\\reg.exe');
   assert.equal(parseWindowsTheme('AppsUseLightTheme REG_DWORD 0x1'), 'light');
   assert.equal(parseWindowsTheme('malformed'), undefined);
 }

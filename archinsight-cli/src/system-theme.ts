@@ -1,4 +1,5 @@
 import { execFile } from "node:child_process";
+import { win32 } from "node:path";
 import type { RenderTheme } from "@insight/language";
 import type { ThemeOption } from "./cli-arguments.js";
 
@@ -27,6 +28,7 @@ export async function resolveRenderTheme(
 export async function detectSystemRenderTheme(
   platform = process.platform,
   run: ThemeCommandRunner = runThemeCommand,
+  env: NodeJS.ProcessEnv = process.env,
 ): Promise<RenderTheme | undefined> {
   try {
     if (platform === "darwin") {
@@ -34,7 +36,7 @@ export async function detectSystemRenderTheme(
       return result.stdout.trim().toLowerCase() === "dark" ? "dark" : "light";
     }
     if (platform === "win32") {
-      const result = await run("reg.exe", [
+      const result = await run(windowsRegExecutable(env), [
         "query",
         "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
         "/v",
@@ -58,6 +60,17 @@ export async function detectSystemRenderTheme(
     return undefined;
   }
   return undefined;
+}
+
+// A bare "reg.exe" is resolved through the current directory before PATH on
+// Windows, so a planted binary in the working directory would be executed.
+export function windowsRegExecutable(env: NodeJS.ProcessEnv = process.env): string {
+  const systemRoot = [env.SystemRoot, env.windir].find(isDriveRootedPath) ?? "C:\\Windows";
+  return win32.join(systemRoot, "System32", "reg.exe");
+}
+
+function isDriveRootedPath(value: string | undefined): value is string {
+  return value !== undefined && /^[A-Za-z]:[\\/]/.test(value);
 }
 
 export function parseWindowsTheme(output: string): RenderTheme | undefined {
