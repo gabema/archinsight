@@ -54,6 +54,9 @@ server.listen(port, host, () => {
 
 process.once('SIGTERM', shutdown);
 process.once('SIGINT', shutdown);
+// Windows cannot deliver signals to another process, so a supervisor that started the renderer
+// with an IPC channel requests the same graceful shutdown by disconnecting it.
+process.once('disconnect', shutdown);
 
 function shutdown() {
   server.close((error) => {

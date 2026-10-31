@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { legacyYamlToEnv, localConfigCandidatePaths } from './local-config';
 
@@ -73,8 +74,8 @@ archinsight:
   });
 
   it('searches local config through ancestor directories', () => {
-    expect(localConfigCandidatePaths('/workspace/insight/archinsight-web/build', undefined)).toContain(
-      '/workspace/insight/local/application.yaml'
+    expect(localConfigCandidatePaths(resolve('/workspace/insight/archinsight-web/build'), undefined)).toContain(
+      resolve('/workspace/insight/local/application.yaml')
     );
   });
 });

@@ -1,11 +1,20 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { fileURLToPath } from 'node:url';
+import { normalizePath } from 'vite';
 import { defineConfig } from 'vitest/config';
 
-const webSources = fileURLToPath(new URL('./src', import.meta.url));
-const workbenchSources = fileURLToPath(
-  new URL('../packages/archinsight-workbench/src', import.meta.url)
+// Coverage globs need forward slashes, including on Windows.
+const webSources = normalizePath(fileURLToPath(new URL('./src', import.meta.url)));
+const workbenchSources = normalizePath(
+  fileURLToPath(new URL('../packages/archinsight-workbench/src', import.meta.url))
 );
+const linkedWorkspacePackages = [
+  '@archinsight/contracts',
+  '@archinsight/editor-support',
+  '@archinsight/graphviz',
+  '@archinsight/workbench',
+  '@insight/language'
+];
 const sharedRuntimeDependencies = [
   'svelte',
   'monaco-editor',
@@ -22,6 +31,12 @@ export default defineConfig({
     // Separate symlink and physical module ids can register Monaco extensions more than once.
     preserveSymlinks: false,
     dedupe: sharedRuntimeDependencies
+  },
+  ssr: {
+    // Linked sources live outside server.fs.allow and must stay in Vite's SSR pipeline, as in the
+    // production build. Svelte's dependency crawl otherwise externalizes the workbench's own
+    // dependencies once that package has node_modules, and Vite then refuses to load them.
+    noExternal: linkedWorkspacePackages
   },
   test: {
     coverage: {

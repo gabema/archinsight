@@ -14,9 +14,10 @@ const excludes = values('--exclude=');
 assert(includes.length > 0, 'At least one --include path fragment is required');
 
 const summary = JSON.parse(await readFile(inputPath, 'utf8'));
+// Coverage keys use native separators, while filters are written with "/".
 const selected = Object.entries(summary).filter(([file]) => file !== 'total'
-  && includes.some((fragment) => file.includes(fragment))
-  && excludes.every((fragment) => !file.includes(fragment)));
+  && includes.some((fragment) => file.replaceAll('\\', '/').includes(fragment))
+  && excludes.every((fragment) => !file.replaceAll('\\', '/').includes(fragment)));
 assert(selected.length > 0, `No coverage files matched ${includes.join(', ')}`);
 
 const total = {};

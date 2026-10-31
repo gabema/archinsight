@@ -24,7 +24,7 @@ test('serves health, svg render, and png render endpoints', async (t) => {
       MAX_CONCURRENT_RENDERS: '1',
       MAX_QUEUED_RENDERS: '0'
     },
-    stdio: ['ignore', 'pipe', 'pipe']
+    stdio: ['ignore', 'pipe', 'pipe', 'ipc']
   });
   server.stderr.on('data', (chunk) => {
     stderr += chunk.toString('utf8');
@@ -102,8 +102,17 @@ test('serves health, svg render, and png render endpoints', async (t) => {
       return;
     }
     if (server.exitCode === null) {
-      server.kill('SIGTERM');
-      await new Promise((resolve) => server.once('exit', resolve));
+      const exited = new Promise((resolve) => server.once('exit', (code) => resolve(code)));
+      // Windows cannot deliver SIGTERM; the IPC disconnect takes the same graceful shutdown path.
+      if (process.platform === 'win32') {
+        server.disconnect();
+      } else {
+        server.kill('SIGTERM');
+      }
+      const forceKill = setTimeout(() => server.kill('SIGKILL'), 5000);
+      const code = await exited;
+      clearTimeout(forceKill);
+      assert.equal(code, 0, `renderer did not shut down gracefully: ${stderr}`);
     }
   }
 });
